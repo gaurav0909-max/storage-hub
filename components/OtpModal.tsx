@@ -38,9 +38,12 @@ const OtpModal = ({
     setIsLoading(true);
     try {
       const sessionId = await verfiySecret({ accountId, password });
+      console.log("Session ID:", sessionId); // Debugging sessionId
       if (sessionId) {
         setIsOpen(false);
-        router.push("/");
+        router.push("/"); // Make sure this is the correct path
+      } else {
+        console.log("Session ID not found");
       }
     } catch (error) {
       console.log("Failed to verify OTP", error);
