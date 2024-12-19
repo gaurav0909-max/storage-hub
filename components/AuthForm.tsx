@@ -51,17 +51,16 @@ const AuthForm = ({ type }: { type: FormType }) => {
     setErrorMessage("");
 
     try {
-      // const user =
-      //   type === "sign-up"
-      //     ? await createAccount({
-      //         fullName: values.fullName || "",
-      //         email: values.email,
-      //       })
-      //     : await signInUser({ email: values.email });
+      const user =
+        type === "sign-up"
+          ? await createAccount({
+              fullName: values.fullName || "",
+              email: values.email,
+            })
+          : await signInUser({ email: values.email });
 
-      // console.log("API Response:", user);
-      // setAccountId(user.accountId);
-      console.log("i'm here!");
+      console.log("API Response:", user);
+      setAccountId(user.accountId);
     } catch (error) {
       console.error("Error during account creation:", error);
       setErrorMessage("Failed to create account. Please try again.");
