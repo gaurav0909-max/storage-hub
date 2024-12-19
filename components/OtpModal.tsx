@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/input-otp";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { sendEmailOTP, verfiySecret } from "@/lib/actions/user.action";
 import { useRouter } from "next/navigation";
+import { sendEmailOTP, verifySecret } from "@/lib/actions/user.action";
 
 const OtpModal = ({
   email,
@@ -37,7 +37,7 @@ const OtpModal = ({
     e.preventDefault();
     setIsLoading(true);
     try {
-      const sessionId = await verfiySecret({ accountId, password });
+      const sessionId = await verifySecret({ accountId, password });
       console.log("Session ID:", sessionId); // Debugging sessionId
       if (sessionId) {
         setIsOpen(false);
