@@ -46,7 +46,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("values", values);
     setIsLoading(true);
     setErrorMessage("");
 
@@ -59,7 +58,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
             })
           : await signInUser({ email: values.email });
 
-      console.log("API Response:", user);
       setAccountId(user.accountId);
     } catch (error) {
       console.error("Error during account creation:", error);

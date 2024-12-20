@@ -25,10 +25,8 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       setFiles(acceptedFiles);
-      console.log("acceptedFiles", acceptedFiles);
 
       const uploadPromises = acceptedFiles.map(async (file) => {
-        console.log("file", file);
         if (file.size > MAX_FILE_SIZE) {
           setFiles((prevFiles) =>
             prevFiles.filter((f) => f.name !== file.name)
@@ -47,7 +45,6 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
 
         return uploadFile({ file, ownerId, accountId, path }).then(
           (uploadedFile) => {
-            console.log("path", path);
             if (uploadedFile) {
               setFiles((prevFiles) =>
                 prevFiles.filter((f) => f.name !== file.name)
@@ -58,7 +55,6 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
       });
 
       const uploadedFiles = await Promise.all(uploadPromises);
-      console.log(uploadedFiles);
     },
     [ownerId, accountId, path]
   );

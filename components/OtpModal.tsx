@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/input-otp";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { sendEmailOTP, verifySecret } from "@/lib/actions/user.action";
 
 const OtpModal = ({
@@ -29,6 +29,8 @@ const OtpModal = ({
   accountId: string;
 }) => {
   const router = useRouter();
+  const path = usePathname();
+  console.log("path", path);
   const [isOpen, setIsOpen] = useState(true);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,12 +38,17 @@ const OtpModal = ({
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    const isLocalhost =
+      typeof window !== "undefined" && window.location.hostname === "localhost";
+    console.log("Is Localhost:", isLocalhost);
+    const redirectURL = isLocalhost
+      ? "http://localhost:3000" // Localhost URL
+      : "https://storage-hub.vercel.app";
     try {
       const sessionId = await verifySecret({ accountId, password });
-      console.log("Session ID:", sessionId); // Debugging sessionId
       if (sessionId) {
         setIsOpen(false);
-        router.push("/"); // Make sure this is the correct path
+        router.push(redirectURL); // Make sure this is the correct path
       } else {
         console.log("Session ID not found");
       }
