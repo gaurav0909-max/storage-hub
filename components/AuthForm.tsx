@@ -74,6 +74,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           <h1 className="form-title">
             {type === "sign-in" ? "Sign In" : "Sign Up"}
           </h1>
+
           {type === "sign-up" && (
             <FormField
               control={form.control}

@@ -15,6 +15,7 @@ const Header = ({
   return (
     <header className="header">
       <Search />
+
       <div className="header-wrapper">
         <FileUploader ownerId={userId} accountId={accountId} />
         <form

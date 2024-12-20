@@ -71,6 +71,7 @@ const Sidebar = ({ fullName, email, avatar }: Props) => {
         className="w-full"
         draggable={false}
       />
+
       <div className="sidebar-user-info">
         <Image
           src={avatar}
