@@ -46,10 +46,12 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("onSubmit called with values:", values); // Debugging input
     setIsLoading(true);
     setErrorMessage("");
 
     try {
+      console.log("Type of operation:", type); // Track the type (sign-up/sign-in)
       const user =
         type === "sign-up"
           ? await createAccount({
@@ -58,12 +60,14 @@ const AuthForm = ({ type }: { type: FormType }) => {
             })
           : await signInUser({ email: values.email });
 
+      console.log("User returned:", user); // Debugging the response
       setAccountId(user.accountId);
     } catch (error) {
-      console.error("Error during account creation:", error);
+      console.error("Error during account creation:", error); // Log error details
       setErrorMessage("Failed to create account. Please try again.");
     } finally {
       setIsLoading(false);
+      console.log("Loading state set to false"); // Confirm state change
     }
   };
 
