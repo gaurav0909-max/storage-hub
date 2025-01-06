@@ -1,13 +1,12 @@
 "use server"
 
-import { ID, Query } from "node-appwrite";
+import { createAdminClient, createSessionClient } from "@/lib/appwrite";
 import { InputFile } from "node-appwrite/file";
-import { createAdminClient } from "../appwrite";
-import { appwriteConfig } from "../appwrite/config";
-import { getFileType, parseStringify } from "../utils";
-import { constructFileUrl } from './../utils';
+import { appwriteConfig } from "@/lib/appwrite/config";
+import { ID, Models, Query } from "node-appwrite";
+import { constructFileUrl, getFileType, parseStringify } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
-import { getCurrentUser } from "./user.action";
+import { getCurrentUser } from "@/lib/actions/user.action";
 
 const handleError = (error: unknown, message: string) => {
     console.log(error, message);

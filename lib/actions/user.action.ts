@@ -76,38 +76,51 @@ export const verifySecret = async ({
     password: string;
 }) => {
     try {
+        console.log("Verifying secret for accountId:", accountId);
+
         const { account } = await createAdminClient();
+        console.log("Admin client created successfully");
 
         const session = await account.createSession(accountId, password);
+        console.log("Session created:", session);
 
-        (await cookies()).set("appwrite-session", session.secret, {
+        const cookie = await cookies();
+        cookie.set("appwrite-session", session.secret, {
             path: "/",
             httpOnly: true,
             sameSite: "strict",
             secure: true,
         });
+        console.log("Cookie set for session");
 
         return parseStringify({ sessionId: session.$id });
     } catch (error) {
-        handleError(error, "Failed to verify OTP")
+        console.error("Error in verifySecret:", error);
+        handleError(error, "Failed to verify OTP");
     }
-}
+};
+
 
 export const signInUser = async ({ email }: { email: string }) => {
     try {
+        console.log("Attempting to sign in user with email:", email);
         const existingUser = await getUserByEmail(email);
 
-        // User exists, send OTP
         if (existingUser) {
+            console.log("User found:", existingUser);
             await sendEmailOTP({ email });
+            console.log("OTP sent to:", email);
             return parseStringify({ accountId: existingUser.accountId });
         }
 
+        console.warn("User not found for email:", email);
         return parseStringify({ accountId: null, error: "User not found" });
     } catch (error) {
+        console.error("Error in signInUser:", error);
         handleError(error, "Failed to sign in user");
     }
 };
+
 
 export const getCurrentUser = async () => {
     try {
