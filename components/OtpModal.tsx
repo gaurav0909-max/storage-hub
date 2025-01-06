@@ -19,16 +19,16 @@ import {
 } from "@/components/ui/input-otp";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { sendEmailOTP, verifySecret } from "@/lib/actions/user.action";
+import { verifySecret, sendEmailOTP } from "@/lib/actions/user.action";
 
 const OtpModal = ({
-  email,
   accountId,
+  email,
 }: {
-  email: string;
   accountId: string;
+  email: string;
 }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
@@ -69,15 +69,16 @@ const OtpModal = ({
               alt="close"
               width={20}
               height={20}
-              className="otp-close-button"
               onClick={() => setIsOpen(false)}
+              className="otp-close-button"
             />
           </AlertDialogTitle>
           <AlertDialogDescription className="subtitle-2 text-center text-light-100">
-            We have sent a verification code to{" "}
-            <span className="pl-1 text-brandfont-medium">{email}</span>
+            We&apos;ve sent a code to{" "}
+            <span className="pl-1 text-brand">{email}</span>
           </AlertDialogDescription>
         </AlertDialogHeader>
+
         <InputOTP maxLength={6} value={password} onChange={setPassword}>
           <InputOTPGroup className="shad-otp">
             <InputOTPSlot index={0} className="shad-otp-slot" />
@@ -88,6 +89,7 @@ const OtpModal = ({
             <InputOTPSlot index={5} className="shad-otp-slot" />
           </InputOTPGroup>
         </InputOTP>
+
         <AlertDialogFooter>
           <div className="flex w-full flex-col gap-4">
             <AlertDialogAction
@@ -106,13 +108,14 @@ const OtpModal = ({
                 />
               )}
             </AlertDialogAction>
-            <div className="subtitle-2  mt-2 text-center text-light-100">
-              Didn&apos;t receive the code?
+
+            <div className="subtitle-2 mt-2 text-center text-light-100">
+              Didn&apos;t get a code?
               <Button
-                onClick={handleResendOtp}
-                className="pl-1 text-brand"
-                variant="link"
                 type="button"
+                variant="link"
+                className="pl-1 text-brand"
+                onClick={handleResendOtp}
               >
                 Click to resend
               </Button>

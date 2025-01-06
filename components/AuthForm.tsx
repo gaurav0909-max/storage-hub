@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import OtpModal from "./OtpModal";
+import OtpModal from "@/components/OtpModal";
 import { createAccount, signInUser } from "@/lib/actions/user.action";
 
 type FormType = "sign-in" | "sign-up";
@@ -46,12 +46,10 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("onSubmit called with values:", values); // Debugging input
     setIsLoading(true);
     setErrorMessage("");
 
     try {
-      console.log("Type of operation:", type); // Track the type (sign-up/sign-in)
       const user =
         type === "sign-up"
           ? await createAccount({
@@ -60,14 +58,11 @@ const AuthForm = ({ type }: { type: FormType }) => {
             })
           : await signInUser({ email: values.email });
 
-      console.log("User returned:", user); // Debugging the response
       setAccountId(user.accountId);
-    } catch (error) {
-      console.error("Error during account creation:", error); // Log error details
+    } catch {
       setErrorMessage("Failed to create account. Please try again.");
     } finally {
       setIsLoading(false);
-      console.log("Loading state set to false"); // Confirm state change
     }
   };
 
@@ -78,7 +73,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
           <h1 className="form-title">
             {type === "sign-in" ? "Sign In" : "Sign Up"}
           </h1>
-
           {type === "sign-up" && (
             <FormField
               control={form.control}
