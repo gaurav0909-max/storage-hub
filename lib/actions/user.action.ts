@@ -76,13 +76,10 @@ export const verifySecret = async ({
     password: string;
 }) => {
     try {
-        console.log("Verifying secret for accountId:", accountId);
 
         const { account } = await createAdminClient();
-        console.log("Admin client created successfully");
 
         const session = await account.createSession(accountId, password);
-        console.log("Session created:", session);
 
         const cookie = await cookies();
         cookie.set("appwrite-session", session.secret, {
@@ -91,7 +88,6 @@ export const verifySecret = async ({
             sameSite: "strict",
             secure: true,
         });
-        console.log("Cookie set for session");
 
         return parseStringify({ sessionId: session.$id });
     } catch (error) {
@@ -103,17 +99,13 @@ export const verifySecret = async ({
 
 export const signInUser = async ({ email }: { email: string }) => {
     try {
-        console.log("Attempting to sign in user with email:", email);
         const existingUser = await getUserByEmail(email);
 
         if (existingUser) {
-            console.log("User found:", existingUser);
             await sendEmailOTP({ email });
-            console.log("OTP sent to:", email);
             return parseStringify({ accountId: existingUser.accountId });
         }
 
-        console.warn("User not found for email:", email);
         return parseStringify({ accountId: null, error: "User not found" });
     } catch (error) {
         console.error("Error in signInUser:", error);
