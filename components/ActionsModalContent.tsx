@@ -62,7 +62,7 @@ export const ShareInput = ({ file, onInputChange, onRemove }: Props) => {
         <div className="pt-4">
           <div className="flex justify-between">
             <p className="subtitle-2 text-light-100">Shared with</p>
-            <p className="subtitle-2 text-light-200">
+            <p className="subtitle-2 text-dark-200">
               {file.users.length} users
             </p>
           </div>

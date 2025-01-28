@@ -88,7 +88,7 @@ const Search = () => {
                   </div>
                   <FormattedDateTime
                     date={file.$createdAt}
-                    className="caption line-clamp-1 text-light-200 "
+                    className="caption line-clamp-1 text-dark-200 "
                   />
                 </li>
               ))

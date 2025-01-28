@@ -89,6 +89,7 @@ const createQueries = (
 
     return queries;
 };
+
 export const getFiles = async ({ types = [], searchText = '', sort = '$createdAt-desc', limit }: GetFilesProps) => {
     const { databases } = await createAdminClient();
 
@@ -105,7 +106,6 @@ export const getFiles = async ({ types = [], searchText = '', sort = '$createdAt
             appwriteConfig.filesCollectionId,
             queries
         );
-        console.log('file', files)
 
         return parseStringify(files);
     } catch (error) {

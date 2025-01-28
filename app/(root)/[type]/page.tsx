@@ -25,7 +25,7 @@ const page = async ({ searchParams, params }: SearchParamProps) => {
           </p>
 
           <div className="sort-container">
-            <p className="body-1 hidden text-light-200 sm:block">Sort by:</p>
+            <p className="body-1 hidden text-dark-200 sm:block">Sort by:</p>
 
             <Sort />
           </div>
