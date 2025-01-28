@@ -18,8 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import OtpModal from "@/components/OtpModal";
 import { createAccount, signInUser } from "@/lib/actions/user.action";
-
-type FormType = "sign-in" | "sign-up";
+import { FormType } from "@/lib/types";
 
 const authFormSchema = (formType: FormType) => {
   return z.object({

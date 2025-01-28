@@ -17,21 +17,15 @@ import { cn } from "@/lib/utils";
 import FileUploader from "./FileUploader";
 import { Button } from "./ui/button";
 import { signOutUser } from "@/lib/actions/user.action";
+import { MobNavigationProps } from "@/lib/interfaces";
 
-interface Props {
-  $id: string;
-  accountId: string;
-  fullName: string;
-  avatar: string;
-  email: string;
-}
 const MobileNavigation = ({
   $id: ownerId,
   accountId,
   fullName,
   avatar,
   email,
-}: Props) => {
+}: MobNavigationProps) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
